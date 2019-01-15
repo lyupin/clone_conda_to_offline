@@ -116,8 +116,8 @@ NSCC-GZ is short for National Supercomputer Center In Guangzhou, China. (天河�
 I wrote this article mainly for solving problems I met at NSCC-GZ.
 
 There are watchdogs in the system which will kill running programs at the logon node.
-So you may need to run the commands above in task mode (submit them using `yhrun -n 1 your_command').
-The command `conda install' sometimes requires user confirmation which is forbidden by `yhrun'. You may add a parameter `-y' to skip the confirmation step.
+So you may need to run the commands above in task mode (submit them using `yhrun -n 1 your_command`).
+The command `conda install` sometimes requires user confirmation which is forbidden by `yhrun`. You may add a parameter `-y` to skip the confirmation step.
 ```
 yhrun -n 1 conda install --offline -c file:/your_offline_channel -y package_names
 ```
