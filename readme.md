@@ -44,7 +44,7 @@ mkdir -p $HOME/conda_moving
 ```sh
 cd $HOME/conda_moving
 # source activate truck
-conda list --explict > list.txt
+conda list --explicit > list.txt
 # Open `list.txt` and have a visual check.
 ```
 * Backup the selected subset of package cache to the subfolder `pkg_bak`.
@@ -109,4 +109,14 @@ tar -xjf example.tar.bz2 -C example/
 ```sh
 conda index $HOME/conda_moving/pkg_bak/linux-64
 ```
-* Activate the environment and install the package.
+* Activate the environment and install the package from caches.
+
+## Special notes for NSCC-GZ 
+NSCC-GZ is short for National Supercomputer Center In Guangzhou, China. (天河二号，中国国家超级计算广州中心).
+I wrote this article mainly for solving problems I met at NSCC-GZ.
+There are watchdogs in the system which will kill running programs at the logon node.
+So you may need to run the commands above in taks mode (submit them using "yhrun -n 1 your_command").
+The command "conda install" sometimes requires user confirmation which is forbidden by "yhrun". You may add a parameter "-y" to skip the confirmation step.
+```
+yhrun -n 1 conda install --offline -c file:/your_offline_channel -y package_names
+```
