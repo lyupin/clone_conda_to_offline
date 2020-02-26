@@ -5,7 +5,7 @@
 
 
 import shutil
-
+import os
 
 # In[13]:
 
@@ -13,6 +13,7 @@ import shutil
 def analyze_pkg_from_list(fn, skip_header = 4, debug = False, with_postfix = False):
     '''
     Analyze package names (and versions) from a list output by 'conda list --explicit > fn'
+    return: (pkgs, lines), where 'pkgs' is the list of package names, and 'urls' is the list of package download urls. 
     '''
     fid = open(fn, 'r')
     lines = fid.readlines()
@@ -21,13 +22,14 @@ def analyze_pkg_from_list(fn, skip_header = 4, debug = False, with_postfix = Fal
     if debug: 
         print(lines)
     
+    urls = [line.rstrip() for line in lines]
     pkgs = [line.split('/')[-1].rstrip() for line in lines]
     if not with_postfix:
         # assume all packages end with '.tar.bz2'
         pkgs = [line[:-8] for line in pkgs]
     if debug:
         print(pkgs)
-    return pkgs
+    return pkgs, urls
     
 
 
@@ -41,7 +43,7 @@ fn_conda_list = 'list.txt'
 pkg_source_dir = '/home/plyu/miniconda3/pkgs/'
 
 pkg_dest_dir = './pkg_bak/linux-64/'
-pkgs = analyze_pkg_from_list(fn_conda_list)
+pkgs, urls = analyze_pkg_from_list(fn_conda_list)
 
 ## for test
 #pkg_source_dir = './'
@@ -50,5 +52,10 @@ pkgs = analyze_pkg_from_list(fn_conda_list)
 n_pkg = len(pkgs)
 for i_pkg in range(n_pkg):
     print('Working on [' + str(i_pkg+1) + ']: ' + pkgs[i_pkg])
-    shutil.copy2(pkg_source_dir + pkgs[i_pkg] + '.tar.bz2', pkg_dest_dir)
+    try:
+        shutil.copy2(pkg_source_dir + pkgs[i_pkg] + '.tar.bz2', pkg_dest_dir)
+    except FileNotFoundError:
+        cmd_tmp = 'wget {:s} -O {:s}'.format(urls[i_pkg], os.path.join(pkg_dest_dir, pkgs[i_pkg]+'.tar.bz2'))
+        print(cmd_tmp)
+        os.system(cmd_tmp)
 
