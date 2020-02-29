@@ -1,4 +1,4 @@
-# Guidance On Cloning An Conda Environment To An Offline Linux PC
+# Guidance On Cloning A Conda Environment To An Offline Linux PC
 
 Inspired by these discussion:
 
