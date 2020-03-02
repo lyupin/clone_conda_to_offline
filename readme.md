@@ -122,13 +122,15 @@ conda index $HOME/conda_moving/pkg_bak/linux-64
 conda create -n yard
 conda activate yard
 ```
-* You have the *explicit* list of the packages needed for environment in `conda_moving/list.txt`. For example, one line in the file is:
+* You have the *explicit* list of these packages needed for environment in `conda_moving/list.txt`. For example, one line in the file is:
 ```
 https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
+https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/linux-64/ca-certificates-2019.11.28-hecc5488_0.tar.bz2
+https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/linux-64/ld_impl_linux-64-2.33.1-h53a641e_8.tar.bz2
 ```
-* You can navigate to the `conda_moving/pkgs` directory and install this package by:
+* You can navigate to the `conda_moving/pkgs/linux-64` directory and install these packages by:
 ```
-conda install -q -y https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
+conda install -q -y _libgcc_mutex-0.1-conda_forge.tar.bz2 ca-certificates-2019.11.28-hecc5488_0.tar.bz2 ld_impl_linux-64-2.33.1-h53a641e_8.tar.bz2
 ```
 * Install all other compressed packages, and run a test.
 
