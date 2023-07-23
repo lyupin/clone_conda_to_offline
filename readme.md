@@ -79,14 +79,6 @@ If you use Miniconda on your server which does not support the command `conda in
 # The way I use to load conda. It might not work on your machine.
 module load anaconda3
 ``` 
-* Extract the package caches from zipped file `*.tar.bz2` to their corresponding folders.
-```sh
-python extract_pkgs.py
-```
-* Let conda know about these package caches.
-```sh
-conda index $HOME/conda_moving/pkg_bak/linux-64
-```
 * Create the environment `yard` or whatever other name you want.
 ```sh
 conda create -n yard --offline
@@ -95,9 +87,13 @@ conda create -n yard --offline
 ```sh
 source activate yard
 ```
-* Install the packages from caches.
+* From pkg_bak folder，find package name of python, so that we firstly install python.
 ```sh
-conda install --offline -c file:/$HOME/conda_moving/pkg_bak python=3.6 numpy scipy matplotlib h5py pandas
+conda install ./pkg_bak/linux-64/python-3.8.16-h1aa4202_4.conda
+```
+* Run extract_pkgs.py with installed python.
+```sh
+python extract_pkgs.py
 ```
 * If lucky, the installation may end here.
 * If not lucky enough, some errors of dependencies might prompt out. I suggest you remove those problematic packages from the list of installation. Let it go as far as you can. And refer to next section to add other accepted versions of missed packages.
